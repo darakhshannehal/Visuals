@@ -1,5 +1,6 @@
 # AirBnB Listing Analysis
 #### This project analyzes AirBnB listings in Paris to determine the impact of the 2015 regulations.
+#### [Full Analysis](https://darakhshannehal.quarto.pub/airbnb-listing-analysis/)
 
 #### Key Findings:
 
