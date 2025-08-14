@@ -1,8 +1,13 @@
 # AirBnB Listing Analysis
-#### This project analyzes AirBnB listings in Paris to determine the impact of the 2015 regulations.
-#### [Full Analysis](https://darakhshannehal.quarto.pub/airbnb-listing-analysis/)
+A **data storytelling** project built in **R**, analyzing Paris AirBnB listings to assess the impact of the 2015 rental regulations.
 
-#### Key Findings:
+### View [Full Analysis](https://darakhshannehal.quarto.pub/airbnb-listing-analysis/)
+
+### Infographic
+
+![AirBnB Report](AirBnB_report.png)
+
+### Key Findings:
 
 * **Neighborhood Analysis:** Elysee has the highest average listing prices.
 
@@ -10,8 +15,10 @@
 
 * **Impact of Regulations:** The 2015 regulations resulted in fewer new hosts and higher prices.
 
-* **Temporal Trends:** The number of new hosts peaked prior to the 2015 regulations and declined afterward, while average listing prices have generally trended upwards.
+* **Temporal Trends:** Host registrations peaked before 2015; prices have trended upward since
 
-#### Graphic
-Key trends identified using R and its visualization libraries are presented in the following one-page graphic
-![AirBnB Report](AirBnB_report.png)
+### R Packages Used:
+
+- **tidyverse**: Data wrangling, transformation, and plotting
+- **skimr**: Quick summary statistics 
+- **patchwork**: Combining multiple ggplot visualizations into a single layout
