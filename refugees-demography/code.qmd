@@ -11,13 +11,11 @@ execute:
 if (!require("pacman")) {
   install.packages("pacman")
 }
-
 #  Load packages
 pacman::p_load(
   tidyverse,
   refugees,
   tidylog,
-  ggview,
   ggtext,
   scico
 )
@@ -25,10 +23,9 @@ pacman::p_load(
 
 ```{r}
 # Load demographics data from refugees package
-
 demographics = refugees::demographics
-glimpse(demographics) # Check data types
 
+glimpse(demographics) # Check data types
 
 demographics$year = as.integer(demographics$year) # Convert year to integer
 ```
@@ -50,7 +47,7 @@ under_5 <- demographics |>
 ```
 
 ```{r}
-#
+# Regions of interest
 selected_regions <- c(
   "COD",
   "SDN",
@@ -63,9 +60,9 @@ selected_regions <- c(
   "AFG",
   "SYR"
 )
-
+# Create a lookup vector to map ISO3 codes to country names
 iso_to_country <- c(
-  COD = "Congo (DRC)",
+  COD = "Congo (DRC)", # Democratic Republic of the Congo
   SDN = "Sudan",
   YEM = "Yemen",
   MMR = "Myanmar",
@@ -77,27 +74,31 @@ iso_to_country <- c(
   SYR = "Syria"
 )
 
-# Filter the data to include only the selected countries
-under_5_filtered <- under_5 |>
-  filter(coo_iso %in% selected_regions)
+under_5_heatmap <- under_5 |>
+  # Keep only the selected countries
+  filter(coo_iso %in% selected_regions) |>
 
-
-under_5_heatmap <- under_5_filtered |>
+  # Group the data by year and country code
   group_by(year, coo_iso) |>
+
+  # For each year × country, calculate the total displaced children under 5
   summarise(total = sum(total), .groups = "drop") |>
-  mutate(country_name = iso_to_country[coo_iso])
 
-country_order <- under_5_heatmap |>
-  group_by(country_name) |>
-  summarise(total_displacement = sum(total)) |>
-  arrange(desc(total_displacement)) |>
-  pull(country_name)
+  # Add country name using your lookup vector
+  mutate(country_name = iso_to_country[coo_iso]) |>
 
-# Apply the order to the country_name factor for plotting
-under_5_heatmap$country_name <- factor(
-  under_5_heatmap$country_name,
-  levels = rev(country_order)
-)
+  # Reorder the country factor levels for plotting:
+  # forcats::fct_reorder reorders factor levels based on a summary of another variable here, it uses the sum of 'total' across years
+  # .desc = TRUE puts the largest displacement countries at the top of the plot
+  mutate(
+    country_name = forcats::fct_reorder(
+      country_name,
+      total,
+      .fun = sum,
+      .desc = TRUE
+    )
+  )
+
 ```
 
 ```{r}
@@ -158,11 +159,9 @@ ggplot(
     fill = NULL
   ) +
   custom_theme
-
 ```
 
 ```{r}
 # Save plot
-ggsave("demography_heatmap.png", width = 9, height = 5, dpi = 300)
-
+ggsave("demographics_heatmap.png", width = 9, height = 5, dpi = 300)
 ```
