@@ -3,8 +3,6 @@ A **data storytelling** project built in **R**, analyzing Paris AirBnB listings 
 
 ### View [Full Analysis](https://darakhshannehal.quarto.pub/airbnb-listing-analysis/)
 
-### Infographic
-
 <p align="center">
     <img src="AirBnB_report.png" width="80%" height="85%">
 
