@@ -5,4 +5,4 @@ This project explores demographic data on **forcibly displaced children under ag
 
 <p align="center">
 
-<img src="demographics_heatmap.png" width="70%" height="75%"/>
+<img src="demographics_heatmap.png" width="77%" height="72%"/>
