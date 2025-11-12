@@ -34,6 +34,7 @@ demographics$year = as.integer(demographics$year) # Convert year to integer
 ```
 
 ### Children under 5
+
 ```{r}
 # Filter for children under 5 (f_0_4 and m_0_4 columns)
 under_5 <- demographics |>
@@ -165,4 +166,3 @@ ggplot(
 ggsave("demography_heatmap.png", width = 9, height = 5, dpi = 300)
 
 ```
-
