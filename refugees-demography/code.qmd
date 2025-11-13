@@ -81,7 +81,7 @@ under_5_heatmap <- under_5 |>
   # Group the data by year and country code
   group_by(year, coo_iso) |>
 
-  # For each year × country, calculate the total displaced children under 5
+  # For each year and country, calculate the total displaced children under 5
   summarise(total = sum(total), .groups = "drop") |>
 
   # Add country name using your lookup vector
@@ -96,14 +96,15 @@ under_5_heatmap <- under_5 |>
       total,
       .fun = sum,
       .desc = TRUE
-    )
+    ),
+    country_name = forcats::fct_rev(country_name)
   )
 
 ```
 
 ```{r}
 # Create custom theme
-custom_theme <- theme_minimal(base_size = 12) +
+custom_theme <- theme_minimal(base_size = 11) +
   theme(
     text = element_text(family = "Verdana"),
     panel.background = element_rect(fill = "papayawhip", color = NA),
@@ -113,19 +114,19 @@ custom_theme <- theme_minimal(base_size = 12) +
     legend.position = "bottom",
     axis.text = element_text(colour = "black"),
     axis.title = element_blank(),
+    plot.margin = margin(t = 10, r = 15, b = 15, l = 10),
     plot.title = element_text(
       size = rel(1.2),
       face = "bold",
       hjust = 0,
       margin = margin(t = 5, b = 8)
     ),
-    plot.margin = margin(t = 10, r = 15, b = 15, l = 10),
     # Use ggtext to allow markdown formatting in the subtitle
     plot.subtitle = ggtext::element_markdown(
       hjust = 0,
       margin = margin(b = 10)
     ),
-    plot.caption = element_text(
+    plot.caption = ggtext::element_markdown(
       hjust = 0,
       margin = margin(t = 10)
     )
@@ -134,7 +135,7 @@ custom_theme <- theme_minimal(base_size = 12) +
 
 ```{r}
 subtitle <-
-  "From conflict-affected regions. These include refugees, internally displaced persons (IDPs), <br>asylum seekers, and others."
+  "These include refugees, internally displaced persons (IDPs), asylum seekers, and others from <br>conflict-affected regions."
 
 ggplot(
   under_5_heatmap,
@@ -152,7 +153,7 @@ ggplot(
   labs(
     title = "Forcibly Displaced Children Under Age 5 (in millions)",
     subtitle = subtitle,
-    caption = "Note: Preliminary view of displacement. 2025 data pending; underreporting in Palestine; other age groups, unknown \nand stateless populations not shown.
+    caption = "Note: Preliminary view of displacement. 2025 data pending; underreporting in Palestine; other age groups, unknown and <br>stateless populations not shown.
     \nData: {Refugees} R package (UNHCR) • Visualization: Darakhshan Nehal",
     x = NULL,
     y = NULL,
