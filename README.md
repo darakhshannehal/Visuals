@@ -1,3 +1,3 @@
 ## Visuals
-This is my learning repository for creating visualizations in **R** for effective communication.
+This is my learning repository for R visualizations, with a focus on effective communication.  
 
