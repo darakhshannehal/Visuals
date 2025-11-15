@@ -159,7 +159,8 @@ ggplot(
     y = NULL,
     fill = NULL
   ) +
-  custom_theme
+  custom_theme #+
+# ggview::canvas(width = 9, height = 5, dpi = 300)   # ggview::canvas to preview the plot interactively, ensuring the ggsave dimensions (9x5 inches at 300 DPI) are appropriate before final saving.
 ```
 
 ```{r}
