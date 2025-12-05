@@ -5,8 +5,6 @@
 *.Rproj
 
 # Data files
-*.csv
-*.tsv
 *.xlsx
 
 # OS-specific
